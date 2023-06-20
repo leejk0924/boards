@@ -1,11 +1,9 @@
 package com.boards.study_board.biz.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.metamodel.mapping.NonAggregatedIdentifierMapping;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Post {
@@ -25,11 +23,15 @@ public class Post {
     @Column(name = "VIEW_CNT", length = 11, nullable = false)
     private int viewCnt;
     @Column(name = "NOTICE_YN", length = 1, nullable = false)
-    private int noticeYn;
+    private Boolean noticeYn;
     @Column(name = "DELETE_YN", length = 1, nullable = false)
-    private int deleteYn;
+    private Boolean deleteYn;
     @Column(name = "CREATED_DATE", nullable = false)
-    private LocalDate createDate;
-    @Column(name = "MODIFIED_DATE", columnDefinition = "DATETIME DEFAULT NULL")
-    private LocalDate modifiedDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createDate;
+    // TimeStamp 속성은 Default null 이 불가능함
+    @Column(name = "MODIFIED_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime modifiedDate;
+
 }
