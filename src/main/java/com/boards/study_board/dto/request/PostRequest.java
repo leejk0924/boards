@@ -1,4 +1,4 @@
-package com.boards.study_board.web.controller.dto;
+package com.boards.study_board.dto.request;
 
 public record PostRequest(Long id, String title, String content, String writer, Boolean noticeYn){
 /**
