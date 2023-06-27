@@ -25,4 +25,18 @@ public class PostController {
     public String blogPost() {
         return "post/blog-post";
     }
+    @GetMapping("/view-list")
+    public String viewList(Model model) throws IOException {
+        HashMap<String, String> view_list = new HashMap<>();
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("classpath:/templates/post/*.html");
+
+        for (Resource resource : resources) {
+            String fullFileName = resource.getFilename();
+            String fileName = fullFileName.substring(0, fullFileName.indexOf(".html"));
+            view_list.put(fileName, fullFileName);
+        }
+        model.addAttribute("viewList" ,view_list);
+        return "view-list";
+    }
 }

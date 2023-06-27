@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>view-list</title>
 </head>
 <body>
-$END$
+<h1>뷰 페이지</h1>
+<ul>
+    <a th:each="view : ${viewList}" th:href="${view.key}">
+        <div th:text="${view.value}"></div>
+    </a>
+</ul>
 </body>
 </html>
