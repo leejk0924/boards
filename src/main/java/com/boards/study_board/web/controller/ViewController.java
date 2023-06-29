@@ -1,6 +1,6 @@
 package com.boards.study_board.web.controller;
 
-import com.boards.study_board.biz.service.PostService;
+import com.boards.study_board.biz.service.ViewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -13,17 +13,14 @@ import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor
-public class PostController {
-    private final PostService postService;
-
-    @GetMapping("/")
-    public String index() {
-        return "post/blog-home";
+public class ViewController {
+    private final ViewService viewService;
+    @GetMapping("/view-list")
+    public String viewList(Model model) throws IOException {
+        // View : 퍼블리싱 된 html 페이지
+        model.addAttribute("viewList" , viewService.getViewList());
+        return "view-list";
     }
 
-    @GetMapping("/post/blog-post")
-    public String blogPost() {
-        return "post/blog-post";
-    }
 
 }
