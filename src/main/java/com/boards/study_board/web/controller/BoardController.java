@@ -73,4 +73,15 @@ public class BoardController {
         model.addAttribute("board", board);
         return "detail";
     }
+
+    /**
+     * id값으로 식별하여 게시글 삭제
+     * @param id
+     * @return redirect:/board/
+     */
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return "redirect:/board/";
+    }
 }
