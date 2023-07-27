@@ -46,4 +46,31 @@ public class BoardController {
         model.addAttribute("board", boardDTO);
         return "detail";
     }
+
+    /**
+     * 선택한 게시글의 id를 이용해 해당 게시글의 수정페이지(update.html) 출력
+     * @param id
+     * @param model
+     * @return /board/update.html
+     */
+    @GetMapping("/update/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("boardUpdate", boardDTO);
+        return "update";
+    }
+
+    /**
+     * 패스워드 비교 후 동일한 경우 writer, title, contents update 후 detail 페이지 출력
+     * 패스워드 기능으 추후 수정 예정
+     * @param boardDTO
+     * @param model
+     * @return /board/detail.html
+     */
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+        BoardDTO board = boardService.update(boardDTO);
+        model.addAttribute("board", board);
+        return "detail";
+    }
 }
