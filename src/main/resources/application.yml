@@ -13,11 +13,6 @@ spring:
     username: test
     password: test
 
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:sql/schema.sql
-      data-locations: classpath:sql/data.sql
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -27,13 +22,11 @@ spring:
 # drop(데이터베이스 스키마를 삭제하고 다시 생성) / create(데이터베이스 스키마를 삭제하고 다시 생성) / create-drop(APP 실행할 때마다 스키마를 삭제하고 다시 생성, APP 종료시 스키마를 삭제)
 # validate(Hibernate 가 데이터베이스 스키마를 유효성 검사 - 스키마가 존재하지 않는 경우 예외 발생)
       ddl-auto: none
-    properties:
-      hibernate:
-        format_sql: true
-    show_sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-    #defer-datasource-initialization: true  # Hibernate 의 기능 수행 후 Schema.sql 을 수행하고 싶으면 해당 옵션을 주면 된다.
     open-in-view: false
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+
 logging:
   level:
     org:
