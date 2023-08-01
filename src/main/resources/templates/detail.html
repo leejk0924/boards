@@ -32,7 +32,7 @@
       <td th:text="${board.boardContents}"></td>
     </tr>
   </table>
-<button th:text="목록" th:onclick="|location.href='@{/board/}'|"></button>
+<button th:text="목록" th:onclick="|location.href='@{/board/paging(page=${page})}'|"></button>
   <button th:text="수정" th:onclick="|location.href='@{/board/update/}| + ${board.id} + |'|"></button>
   <button th:text="삭제" th:onclick="|location.href='@{/board/delete/}| + ${board.id} + |'|"></button>
 </body>

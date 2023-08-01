@@ -1,10 +1,7 @@
 package com.boards.study_board.dto.request;
 
 import com.boards.study_board.biz.domain.BoardEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BoardDTO {
     private Long id;
     private String boardWriter;

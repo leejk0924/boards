@@ -3,6 +3,9 @@ package com.boards.study_board.web.controller;
 import com.boards.study_board.biz.service.BoardService;
 import com.boards.study_board.dto.request.BoardDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,10 +43,12 @@ public class BoardController {
      * @return /board/detail.html
      */
     @GetMapping("/{id}")
-    public String findById(@PathVariable Long id, Model model) {
+    public String findById(@PathVariable Long id, Model model,
+                           @PageableDefault(page = 1) Pageable pageable) {
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+        model.addAttribute("page", pageable.getPageNumber());
         return "detail";
     }
 
@@ -83,5 +88,24 @@ public class BoardController {
     public String delete(@PathVariable Long id) {
         boardService.delete(id);
         return "redirect:/board/";
+    }
+
+    /**
+     * paging 처리
+     * @param pageable
+     * @param model
+     * @return /board/paging
+     */
+    @GetMapping("/paging")
+    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
+        Page<BoardDTO> boardList = boardService.paging(pageable);
+        int blockLimit = 3;
+        // Math.ceil : 올림, Math.floor : 버림, Math.round : 반올림
+        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
+        int endPage = ((startPage + blockLimit - 1) < boardList.getTotalPages()) ? startPage + blockLimit - 1 : boardList.getTotalPages();
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        return "paging";
     }
 }
