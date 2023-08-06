@@ -31,6 +31,10 @@
       <th>contents</th>
       <td th:text="${board.boardContents}"></td>
     </tr>
+    <tr th:if="${board.fileAttached == 1}">
+      <th th:text="image"></th>
+      <td><img th:src="@{|/upload/${board.storedFileName}|}" alt=""></td>
+    </tr>
   </table>
 <button th:text="목록" th:onclick="|location.href='@{/board/paging(page=${page})}'|"></button>
   <button th:text="수정" th:onclick="|location.href='@{/board/update/}| + ${board.id} + |'|"></button>
